@@ -20,3 +20,16 @@ export async function POST(request) {
     });
     return new Response(JSON.stringify(matkul), {status: 201});
 }
+
+export async function PUT(request) {
+    const {id, kode, nama} = await request.json();
+
+    if(!id || !kode || !nama) return Response.json({error: 'Field Kosong'}, {
+        status: 400});
+
+    const matkul = await prisma.matkul.update({
+        where: {id},
+        data: {kode, nama},
+    });
+    return Response.json(matkul);
+}
