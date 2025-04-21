@@ -33,3 +33,11 @@ export async function PUT(request) {
     });
     return Response.json(matkul);
 }
+
+export async function DELETE(request) {
+    const {id} = await request.json();
+    if(!id) return Response.json({error: 'ID tidak ditemukan'}, {status : 400});
+
+    await prisma.matkul.delete ({where: {id}});
+    return Response.json({message: 'Berhasil dihapus'});
+}
