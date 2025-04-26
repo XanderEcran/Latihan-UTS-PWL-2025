@@ -24,7 +24,7 @@ export default function MatkulPage(){
         const method = editId ? 'PUT' : 'POST';
         const res = await fetch ('/api/matkul', {
             method,
-            headers : {'Content Type' : 'application/json'},
+            headers : {'Content-Type' : 'application/json'},
             body : JSON.stringify({ id: editId, kode, nama}),
         });
 
