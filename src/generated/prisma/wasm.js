@@ -120,6 +120,13 @@ exports.Prisma.MatkulScalarFieldEnum = {
   nama: 'nama'
 };
 
+exports.Prisma.ProdiScalarFieldEnum = {
+  id: 'id',
+  kode: 'kode',
+  nama: 'nama',
+  kepala: 'kepala'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -127,7 +134,8 @@ exports.Prisma.SortOrder = {
 
 
 exports.Prisma.ModelName = {
-  matkul: 'matkul'
+  matkul: 'matkul',
+  prodi: 'prodi'
 };
 
 /**

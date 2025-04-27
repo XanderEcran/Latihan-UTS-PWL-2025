@@ -16,3 +16,10 @@ model matkul {
   kode String
   nama String
 }
+
+model prodi {
+  id     Int    @id @default(autoincrement())
+  kode   String
+  nama   String
+  kepala String
+}
