@@ -50,6 +50,17 @@ export default function ProdiPage() {
         setFormVisible(true);
     };
 
+    const handleDelete = async (id) => {
+        if(!confirm('Yakin hapus data ini?')) return;
+
+        await fetch('/api/prodi', {
+            method: 'DELETE',
+            headers : {'Content-Type' : 'application/json'},
+            body : JSON.stringify({id}),
+        });
+        fetchProdis();
+    };
+
     return (
         <div>
             <button
@@ -104,12 +115,15 @@ export default function ProdiPage() {
                 </thead>
                 <tbody>
                     {prodis.map ((item, index) => (
-                        <tr key={index.id}>
+                        <tr key={item.id}>
                             <td>{index + 1}</td>
                             <td>{item.kode}</td>
                             <td>{item.nama}</td>
                             <td>{item.kepala}</td>
-                            <td><button onClick={() => handleEdit(item)}>Edit</button></td>
+                            <td>
+                                <button onClick={() => handleEdit(item)}>Edit</button>
+                                <button onClick={() => handleDelete(item.id)}>Delete</button>
+                            </td>
                         </tr>
                     ))}
                     {prodis.length === 0 && (
