@@ -11,7 +11,7 @@ export async function POST(request) {
     const {kode, nama, kepala} = await request.json();
 
     if (!kode || !nama || !kepala) {
-        return new Response(JSON.stringify({error: 'Semua field wahib diisi'}), {
+        return new Response(JSON.stringify({error: 'Semua field wajib diisi'}), {
             status: 400, 
         });
     }
@@ -38,5 +38,5 @@ export async function DELETE(request) {
     if(!id) return Response.json({error: 'ID tidak ditemukan'}, {status : 400});
 
     await prisma.prodi.delete({where: {id}});
-    return Reponse.json({message: 'Berhasil dihapus'});
+    return Response.json({message: 'Berhasil dihapus'});
 }
