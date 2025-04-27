@@ -20,3 +20,15 @@ export async function POST(request) {
     });
     return new Response(JSON.stringify(prodi), {status: 201});
 }
+
+export async function PUT(request) {
+    const {id, kode, nama, kepala} = await request.json();
+
+    if(!id || !kode || !nama || !kepala) return Response.json({error: 'Field Kosong'}, {status : 400});
+
+    const prodi = await prisma.prodi.update({
+        where : {id},
+        data: {kode, nama, kepala},
+    });
+    return Response.json(prodi)
+}

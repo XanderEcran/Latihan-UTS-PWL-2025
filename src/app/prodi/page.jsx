@@ -9,6 +9,7 @@ export default function ProdiPage() {
     const [kepala, setKepala] = useState('');
     const [msg, setMsg] = useState('');
     const [formVisible, setFormVisible] = useState(false);
+    const [editId, setEditId] = useState(null);
 
     const fetchProdis = async () => {
         const res = await fetch('/api/prodi');
@@ -22,22 +23,32 @@ export default function ProdiPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const method = editId ? 'PUT' : 'POST';
         const res = await fetch('/api/prodi', {
-            method : 'POST',
+            method,
             headers : {'Content-Type' : 'application/json'},
-            body : JSON.stringify({kode, nama, kepala}),
+            body : JSON.stringify({id : editId, kode, nama, kepala}),
         });
         if (res.ok) {
             setMsg('Berhasil disimpan!');
             setKode('');
             setNama('');
             setKepala('');
+            setEditId(null);
             setFormVisible(false);
             fetchProdis();
         }else {
             setMsg('Gagal menyimpan data');
         }
-    }
+    };
+
+    const handleEdit = (item) => {
+        setKode(item.kode);
+        setNama(item.nama);
+        setKepala(item.kepala);
+        setEditId(item.id);
+        setFormVisible(true);
+    };
 
     return (
         <div>
@@ -88,6 +99,7 @@ export default function ProdiPage() {
                         <th>Kode</th>
                         <th>Nama Prodi</th>
                         <th>Kepala Dosen</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -97,11 +109,12 @@ export default function ProdiPage() {
                             <td>{item.kode}</td>
                             <td>{item.nama}</td>
                             <td>{item.kepala}</td>
+                            <td><button onClick={() => handleEdit(item)}>Edit</button></td>
                         </tr>
                     ))}
                     {prodis.length === 0 && (
                         <tr>
-                            <td colSpan="4">Belum ada data</td>
+                            <td colSpan="5">Belum ada data</td>
                         </tr>
                     )}
                 </tbody>
